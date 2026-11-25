@@ -24,6 +24,7 @@ class Individuo:
             else:
                 self.cromossomo.append("1")
 
+
     def avaliacao(self):
         nota = 0
         soma_espacos = 0
@@ -38,6 +39,7 @@ class Individuo:
         self.nota_avaliacao = nota
         self.espaco_usado = soma_espacos
 
+
     def crossover(self, outro_individuo):
         corte = round(random() * len(self.cromossomo))
 
@@ -50,6 +52,21 @@ class Individuo:
         filhos[1].cromossomo = filho2
 
         return filhos
+
+
+    def mutacao(self, taxa_mutacao):
+        print("Antes %s" % self.cromossomo)
+
+        for i in range(len(self.cromossomo)):
+            if random() < taxa_mutacao:
+                if self.cromossomo[i] == "1":
+                    self.cromossomo[i] = "0"
+                else:
+                    self.cromossomo[i] = "1"
+
+        print("Depois %s" % self.cromossomo)
+        return self
+
 
 if __name__ == '__main__':
     # p1 = Produto('Iphone 6', 0.0000899, 2199.12)
@@ -105,3 +122,6 @@ if __name__ == '__main__':
     print("Espaco usado = %s" % str(individuo2.espaco_usado))
 
     individuo1.crossover(individuo2)
+
+    individuo1.mutacao(0.05)
+    individuo2.mutacao(0.05)
